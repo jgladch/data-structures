@@ -5,12 +5,13 @@ var makeQueue = function(){
   var storage = {};
   var size = 0;
   var counter = 0;
+  var index = 0;
   // Implement the methods below
 
   someInstance.enqueue = function(value){
-    debugger;
-    storage[counter] = value;
+    storage[index] = value;
     size += 1;
+    index += 1;
   };
 
   someInstance.dequeue = function(){
