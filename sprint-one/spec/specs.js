@@ -106,7 +106,7 @@ define([
 
       verifyClass(instantiator).followsPattern(variant, {}, prototypeOfInstances);
 
-      it('reports a size of zero for a new queue', function() {
+      /*it('reports a size of zero for a new queue', function() {
         expect(queue.size()).to.equal(0);
       });
 
@@ -132,7 +132,7 @@ define([
         queue.dequeue();
         queue.dequeue();
         expect(queue.size()).to.equal(0);
-      });
+      });*/
 
       it('allows sequentially adding and removing items', function() {
         queue.enqueue('a');
