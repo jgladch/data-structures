@@ -87,6 +87,36 @@ define([
       });
     });
 
+    // Profiling Test Case Results:
+    // Functional Pattern:
+    //   Stack: 318ms
+    //   Queue: 436ms
+
+    // Functional Pattern Shared Patterns:
+    //   Stack: 248ms
+    //   Queue: 255ms
+
+    // Prototypal Patterns:
+    //   Stack: 240ms
+    //   Queue: 249ms
+
+    // Pseudoclassical Pattern:
+    //   Stack: 293ms
+    //   Queue: 249ms
+
+
+    // describe('profiling test case', function(){
+    //   it('creates a big stack, then removes it', function(){
+    //     for (var i = 0; i < 1000000; i++){
+    //       stack.push(''+i);
+    //     }
+    //     for (var x = 0; x < 1000000; x++){
+    //       stack.pop(''+x);
+    //     }
+    //     expect(stack.size()).to.equal(0);
+    //   });
+    // });
+
   });
 
   describe("queue", function() {
@@ -158,6 +188,18 @@ define([
         expect(queue.dequeue()).to.equal('b');
       });
     });
+
+    // describe('profiling test case', function(){
+    //   it('creates a big queue, then removes it', function(){
+    //     for (var i = 0; i < 1000000; i++){
+    //       queue.enqueue(''+i);
+    //     }
+    //     for (var x = 0; x < 1000000; x++){
+    //       queue.dequeue(''+x);
+    //     }
+    //     expect(queue.size()).to.equal(0);
+    //   });
+    // });
 
   });
 
