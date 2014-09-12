@@ -13,11 +13,13 @@ var makeTree = function(value){
 
 var treeMethods = {};
 
+// O(1)
 treeMethods.addChild = function(value){
   var newTree = makeTree(value);
   this.children.push(newTree);
 };
 
+// O(n)
 treeMethods.contains = function(target){
   var result = false;
 

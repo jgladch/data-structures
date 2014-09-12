@@ -11,16 +11,9 @@ var makeBinarySearchTree = function(value){
 
 var binaryTreeMethods = {};
 
+// O(log(n))
 binaryTreeMethods.insert = function(value){
-  // check the value of the current node
-  // if the parameter value is greater than the node's value
-  // go right
-  // else
-  // go left
-  //
-  // if the left/right value is !== undefined
-  // recursion
-
+  //consider refactor of keyword 'this'
   var insertValue = function(node){
     if (this.value > value){
       if (this.left === undefined){
@@ -36,16 +29,45 @@ binaryTreeMethods.insert = function(value){
       }
     };
   };
-  var tree = this;
-  insertValue.call(tree);
+  insertValue.call(this);
 };
 
+// O(log(n))
 binaryTreeMethods.contains = function(value){
-
+  var result = false;
+  var checkTree = function(node) {
+    if (this.value === value) {
+      result = true;
+    } else {
+      if (this.value < value) {
+        if (this.right !== undefined) {
+          checkTree.call(this.right);
+        }
+      } else {
+        if (this.left !== undefined) {
+          checkTree.call(this.left);
+        }
+      }
+    }
+  }
+  checkTree.call(this);
+  return result;
 };
 
+// O(n)
 binaryTreeMethods.depthFirstLog = function(callback){
 
+  var treeCallback = function(node){
+    callback.call(this.value,this.value);
+    if(this.right !== undefined){
+      treeCallback.call(this.right);
+    }
+    if(this.left !== undefined){
+      treeCallback.call(this.left);
+    }
+  };
+
+  treeCallback.call(this);
 };
 
 /*

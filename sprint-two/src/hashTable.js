@@ -3,6 +3,7 @@ var HashTable = function(){
   this._storage = makeLimitedArray(this._limit);
 };
 
+// O(1)
 HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
   //check if there is an entry in the hash index already
@@ -15,6 +16,7 @@ HashTable.prototype.insert = function(k, v){
   }
 };
 
+// O(1)
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   var temp = this._storage.get(i);
@@ -30,6 +32,7 @@ HashTable.prototype.retrieve = function(k){
   }
 };
 
+// O(n)
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   this._storage.each(function(value,key,collection){
