@@ -3,6 +3,7 @@ var makeLinkedList = function(){
   list.head = null;
   list.tail = null;
 
+  // O(1)
   list.addToTail = function(value){
     var newNode = makeNode(value);
     if (list.head === null && list.tail === null) {
@@ -15,6 +16,7 @@ var makeLinkedList = function(){
     return;
   };
 
+  // O(1)
   list.removeHead = function(){
     //save current head (var x) so we can return it
     var returnHead = list.head;
@@ -24,25 +26,22 @@ var makeLinkedList = function(){
     return returnHead.value;
   };
 
+  // O(n)
   list.contains = function(target){
-    //starting with list.head.valu
-    // start at head until we get to a tail that is equal to null
-    // for each node, check if the value === target
-    // if it is equal to the target, return true
-    // else return false
-
-    var currentNode = list.head;
-    // var result = false;
-    while (currentNode.next !== null){
-      if (currentNode.value === target){
-        // result = true;
-        return true;
+    // debugger;
+    var result = false;
+    var checkNodes = function(node){
+      if (node.value === target){
+        result = true;
       } else {
-        currentNode = currentNode.next;
+        if (node.next !== null){
+          node = node.next;
+          checkNodes(node);
+        }
       }
-    }
-    return false;
-
+    };
+    checkNodes(list.head);
+    return result;
   };
 
   return list;
