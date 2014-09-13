@@ -23,22 +23,27 @@ HashTable.prototype.reindex = function(reindexType) {
   }
   this._limit = newLimit;
   this._storage = makeLimitedArray(newLimit);
+  this._count = 0;
 
   for (var y = 0; y < oldValues.length; y++) {
-    var i = getIndexBelowMaxForKey(oldValues[y][0], this._limit);
-    this._storage.set(i, [ oldValues[y][0], oldValues[y][1] ]);
+    this.insert(oldValues[y][0],oldValues[y][1]);
   }
-
 };
 
 // O(1)
 HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
+  var bucket = this._storage.get(i);
 
-  if (this._storage.get(i) !== undefined) {
-    var currentHash = this._storage.get(i);
-    currentHash.push([k,v]);
-    this._storage.set(i,currentHash);
+  if (bucket !== undefined) {
+    var found = false;
+    for (var x = 0; x < bucket.length; x++) {
+      if (bucket[x][0] === k) {
+        bucket[x][1] = v;
+        found = true;
+      }
+    }
+    if (!found) { bucket.push([k,v]); }
   } else {
     this._storage.set(i,[[k,v]]);
   }
@@ -63,6 +68,7 @@ HashTable.prototype.retrieve = function(k){
       }
     }
   }
+  return null;
 };
 
 // O(n)
