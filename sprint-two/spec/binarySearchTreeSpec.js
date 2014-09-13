@@ -12,7 +12,6 @@ describe('binarySearchTree', function() {
   });
 
   it('should insert values at the correct location in the tree', function(){
-    // debugger;
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
     binarySearchTree.insert(7);
@@ -35,9 +34,7 @@ describe('binarySearchTree', function() {
     var func = function(value){ array.push(value); };
     binarySearchTree.insert(2);
     binarySearchTree.insert(3);
-    // debugger;
     binarySearchTree.depthFirstLog(func);
-    console.log(array);
     expect(array).to.eql([5,2,3]);
   });
 });

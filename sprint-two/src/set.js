@@ -1,6 +1,6 @@
 var makeSet = function(){
   var set = Object.create(setPrototype);
-  // set._storage = undefined;
+  set._storage = undefined;
   return set;
 };
 

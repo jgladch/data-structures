@@ -28,7 +28,6 @@ var makeLinkedList = function(){
 
   // O(n)
   list.contains = function(target){
-    // debugger;
     var result = false;
     var checkNodes = function(node){
       if (node.value === target){

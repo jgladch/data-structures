@@ -8,9 +8,6 @@ var makeTree = function(value){
   return newTree;
 };
 
-
-
-
 var treeMethods = {};
 
 // O(1)
@@ -27,9 +24,6 @@ treeMethods.contains = function(target){
     if (tree.value === target){
       result = true;
     } else {
-      //look at children (x)'s values
-      //if none of those values === target
-      // then recurse only if that child (x) has children
       if (tree.children.length > 0){
         for (var x = 0; x < tree.children.length; x++){
           checkTree(tree.children[x]);
