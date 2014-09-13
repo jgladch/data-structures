@@ -2,6 +2,7 @@ var Graph = function(){
   this.nodes = {};
 };
 
+//O(1)
 Graph.prototype.addNode = function(newNode, toNode){
   var newVertex = {
     edges: {}
@@ -19,11 +20,11 @@ Graph.prototype.addNode = function(newNode, toNode){
   }
   this.nodes[newNode] = newVertex;
 };
-
+//O(1)
 Graph.prototype.contains = function(node){
   return (this.nodes[node] !== undefined) ? true : false;
 };
-
+//O(n)
 Graph.prototype.removeNode = function(node){
   var edgeNodes = this.nodes[node].edges;
 
@@ -33,11 +34,11 @@ Graph.prototype.removeNode = function(node){
 
   delete this.nodes[node];
 };
-
+//O(1)
 Graph.prototype.getEdge = function(fromNode, toNode){
   return (this.nodes[fromNode].edges[toNode] === undefined) ? false : true;
 };
-
+//O(1)
 Graph.prototype.addEdge = function(fromNode, toNode){
   var from = this.nodes[fromNode];
   var to = this.nodes[toNode];
