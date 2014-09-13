@@ -35,15 +35,16 @@ HashTable.prototype.retrieve = function(k){
 // O(n)
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
-  // use get and then splice it out instead of using each.
-  this._storage.each(function(value,key,collection){
-    if (i === key){
-      value[0][1] = null;
-      //deletion might not be ideal
-      //loop through the arrays, looking for the correct value
+  var target = this._storage.get(i);
+  if (target.length > 1) {
+    for (var x = 0; x < target.length; x++) {
+      if (target[x][0] === k) {
+        target.splice(x,1);
+      }
     }
-    //return that mofo
-  });
+  } else {
+    target.splice(0,1);
+  }
 };
 
 
