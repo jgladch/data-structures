@@ -4,19 +4,18 @@ var Graph = function(){
 
 Graph.prototype.addNode = function(newNode, toNode){
   var newVertex = {
-    value: newNode,
-    edges: []
+    edges: {}
   };
 
   var  keys = Object.keys(this.nodes);
 
   if (keys.length === 1){
-    newVertex.edges.push(this.nodes[keys[0]]);
-    this.nodes[keys[0]].edges.push(newVertex);
+    newVertex.edges[keys[0]] = this.nodes[keys[0]];
+    this.nodes[keys[0]].edges[newNode] = newVertex;
   }
 
   if (toNode !== undefined) {
-    newVertex.edges.push(this.nodes[toNode]);
+    newVertex.edges[toNode] = this.nodes[toNode];
   }
   this.nodes[newNode] = newVertex;
 };
@@ -28,48 +27,36 @@ Graph.prototype.contains = function(node){
 Graph.prototype.removeNode = function(node){
   var edgeNodes = this.nodes[node].edges;
 
-  for (var x = 0; x < edgeNodes.length; x++){
-    for (var y = 0; y < edgeNodes[x].edges.length; y++){
-      if ( edgeNodes[x].edges[y] === this.nodes[node]) {
-        edgeNodes[x].edges.splice(y,1);
-      }
-    }
+  for (var x in edgeNodes) {
+    delete edgeNodes[x].edges[node];
   }
-  this.nodes[node] = undefined;
+
+  delete this.nodes[node];
 };
 
 Graph.prototype.getEdge = function(fromNode, toNode){
-  var result = false;
-  for (var x = 0; x < this.nodes[fromNode].edges.length; x++) {
-    if (this.nodes[fromNode].edges[x] === this.nodes[toNode]) {
-      result = true;
-    }
-  }
-  return result;
+  return (this.nodes[fromNode].edges[toNode] === undefined) ? false : true;
 };
 
 Graph.prototype.addEdge = function(fromNode, toNode){
   var from = this.nodes[fromNode];
   var to = this.nodes[toNode];
 
-  from.edges.push(to);
-  to.edges.push(from);
+  from.edges[toNode] = to;
+  to.edges[fromNode] = from;
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
   var from = this.nodes[fromNode];
   var to = this.nodes[toNode];
 
-  for (var y = 0; y < from.edges.length; y++){
-    if (from.edges[y] === to) { from.edges.splice(y,1);}
-  }
-  for (var s = 0; s < to.edges.length; s++){
-    if (to.edges[s] === from) { to.edges.splice(s,1);}
-  }
-  if (from.edges.length === 0){
+  delete from.edges[toNode];
+  delete to.edges[fromNode];
+
+  if (Object.keys(from.edges).length === 0){
     this.removeNode(fromNode);
   }
-  if (to.edges.length === 0){
+  if (Object.keys(to.edges).length === 0){
     this.removeNode(toNode);
   }
 };
