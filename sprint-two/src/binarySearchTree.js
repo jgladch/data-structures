@@ -15,42 +15,42 @@ var binaryTreeMethods = {};
 binaryTreeMethods.insert = function(value){
   //consider refactor of keyword 'this'
   var insertValue = function(node){
-    if (this.value > value){
-      if (this.left === undefined){
-        this.left = makeBinarySearchTree(value);
+    if (node.value > value){
+      if (node.left === undefined){
+        node.left = makeBinarySearchTree(value);
       } else {
-        insertValue.call(this.left);
+        insertValue(node.left);
       }
     } else {
-      if (this.right === undefined){
-        this.right = makeBinarySearchTree(value);
+      if (node.right === undefined){
+        node.right = makeBinarySearchTree(value);
       } else {
-        insertValue.call(this.right);
+        insertValue(node.right);
       }
     };
   };
-  insertValue.call(this);
+  insertValue.call(this, this);
 };
 
 // O(log(n))
 binaryTreeMethods.contains = function(value){
   var result = false;
   var checkTree = function(node) {
-    if (this.value === value) {
+    if (node.value === value) {
       result = true;
     } else {
-      if (this.value < value) {
-        if (this.right !== undefined) {
-          checkTree.call(this.right);
+      if (node.value < value) {
+        if (node.right !== undefined) {
+          checkTree(node.right);
         }
       } else {
-        if (this.left !== undefined) {
-          checkTree.call(this.left);
+        if (node.left !== undefined) {
+          checkTree(node.left);
         }
       }
     }
   }
-  checkTree.call(this);
+  checkTree.call(this, this);
   return result;
 };
 
@@ -58,16 +58,36 @@ binaryTreeMethods.contains = function(value){
 binaryTreeMethods.depthFirstLog = function(callback){
 
   var treeCallback = function(node){
-    callback.call(this.value,this.value);
-    if(this.right !== undefined){
-      treeCallback.call(this.right);
+    callback(node.value);
+    if(node.right !== undefined){
+      treeCallback(node.right);
     }
-    if(this.left !== undefined){
-      treeCallback.call(this.left);
+    if(node.left !== undefined){
+      treeCallback(node.left);
     }
   };
 
-  treeCallback.call(this);
+  treeCallback.call(this,this);
+};
+
+binaryTreeMethods.breadthFirstLog = function(callback) {
+
+  var treeCallback = function(array){
+    var nextArray = [];
+    for (var x = 0; x < array.length; x++){
+      callback(array[x].value);
+      if(array[x].left !== undefined) {
+        nextArray.push(array[x].left);
+      }
+      if(array[x].right !== undefined) {
+        nextArray.push(array[x].right);
+      }
+    }
+    if (nextArray.length > 0){
+      treeCallback(nextArray);
+    }
+  };
+  treeCallback([this]);
 };
 
 /*
