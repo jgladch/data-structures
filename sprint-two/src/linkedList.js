@@ -1,10 +1,10 @@
-var makeLinkedList = function(){
+var makeLinkedList = function() {
   var list = {};
   list.head = null;
   list.tail = null;
 
   // O(1)
-  list.addToTail = function(value){
+  list.addToTail = function(value) {
     var newNode = makeNode(value);
     if (list.head === null && list.tail === null) {
       list.head = newNode;
@@ -19,7 +19,7 @@ var makeLinkedList = function(){
     return;
   };
 
-  list.removeTail = function(){
+  list.removeTail = function() {
     //save current head (var x) so we can return it
     var returnTail = list.tail;
     //move head to where the current head's next value points to
@@ -34,7 +34,7 @@ var makeLinkedList = function(){
     return returnTail.value;
   };
 
-  list.addToHead = function(value){
+  list.addToHead = function(value) {
     var newNode = makeNode(value);
     if (list.head === null && list.tail === null) {
       list.head = newNode;
@@ -49,7 +49,7 @@ var makeLinkedList = function(){
   };
 
   // O(1)
-  list.removeHead = function(){
+  list.removeHead = function() {
     //save current head (var x) so we can return it
     var returnHead = list.head;
     //move head to where the current head's next value points to
@@ -65,13 +65,13 @@ var makeLinkedList = function(){
   };
 
   // O(n)
-  list.contains = function(target){
+  list.contains = function(target) {
     var result = false;
-    var checkNodes = function(node){
-      if (node.value === target){
+    var checkNodes = function(node) {
+      if (node.value === target) {
         result = true;
       } else {
-        if (node.next !== null){
+        if (node.next !== null) {
           node = node.next;
           checkNodes(node);
         }
@@ -84,7 +84,7 @@ var makeLinkedList = function(){
   return list;
 };
 
-var makeNode = function(value){
+var makeNode = function(value) {
   var node = {};
 
   node.value = value;
